@@ -29,8 +29,8 @@ jobs:
       - name: Install 11ty dependencies from package.json and build
         run: |
           npm ci
-          npm npx @11ty/eleventy
-
+          npm run build
+# old was npm npx @11ty/eleventy
       
       - name: deploy  # deploy contents of output folder to the branch gh-pages
         uses: peaceiris/actions-gh-pages@v3
