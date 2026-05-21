@@ -1,35 +1,38 @@
-# Name of the action:
+# Name of github action:
 name: Eleventy-to-GH-Pages
 
-# when should it trigger? 
+# Triggers on a push to a branch or manually (workflow_dispatch)
 on:
-  # trigger when something is pushed to the branch main
   push: 
     branches: [ "main" ]
-  # make it possible to trigger manually, useful for debugging
-  workflow_dispatch: 
+  workflow_dispatch:  # manually (useful for debugging)
 
 # what should be done
 jobs:
   # we have only one stage and we name it 'build'
   build:
-    # this is the (docker) image used to run the steps below
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Docker image used to run the steps below
+
+    strategy:
+      matrix:
+        node-version: [24.x]
 
     steps:
-      # checkout the branch
+      - name: Branch checkout
       - uses: actions/checkout@v3
 
-      # install the project and to build the page
-      - name: npm ci & build
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install 11ty dependencies from package.json and build
       - run: npm ci
       - run: npm npx @11ty/eleventy
 
-      # deploy the content of output folder to the branch gh-pages (Eventy default _site)
-      - name: deploy
+      
+      - name: deploy  # deploy contents of output folder to the branch gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          # this line is needed for the action to be able to push something to your repository
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Needed to Create self-gen token to push files to repsitory
+          publish_dir: ./docs  # Eleventy default output folder: _site
