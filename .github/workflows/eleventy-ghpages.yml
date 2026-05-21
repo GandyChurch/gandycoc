@@ -27,8 +27,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install 11ty dependencies from package.json and build
-      - run: npm ci
-      - run: npm npx @11ty/eleventy
+        run: npm ci
+        run: npm npx @11ty/eleventy
 
       
       - name: deploy  # deploy contents of output folder to the branch gh-pages
