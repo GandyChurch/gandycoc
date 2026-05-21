@@ -1,6 +1,6 @@
 export default function (eleventyConfig) {
 	eleventyConfig.setInputDirectory('src');
-	eleventyConfig.setOutputDirectory('docs');
+	eleventyConfig.setOutputDirectory('_site');
 
 	// Set directories to pass through to the dist folder
 	eleventyConfig.addPassthroughCopy('src/css/');
