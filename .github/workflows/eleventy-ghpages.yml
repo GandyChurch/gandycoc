@@ -36,4 +36,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}  # Needed to Create self-gen token to push files to repsitory
-          publish_dir: ./docs  # Eleventy default output folder: _site
+          publish_dir: ./_site  # Eleventy default output folder: _site
