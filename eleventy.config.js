@@ -1,3 +1,5 @@
+import { HtmlBasePlugin } from "@11ty/eleventy";
+
 export default function (eleventyConfig) {
 	eleventyConfig.setInputDirectory('src');
 	eleventyConfig.setOutputDirectory('_site');
@@ -8,12 +10,15 @@ export default function (eleventyConfig) {
 	eleventyConfig.addPassthroughCopy('src/m-bulletins/');
 	eleventyConfig.addPassthroughCopy('src/m-pdf/');
 
+	eleventyConfig.addPlugin(HtmlBasePlugin);
 
-
-}
+};
 
 export const config = {
 	// dataTemplateEngine: 'njk', // in original course, needed?
 	markdownTemplateEngine: 'njk',
 	htmlTemplateEngine: 'njk',
+
+	pathPrefix: "gandycoc",
+
 };
